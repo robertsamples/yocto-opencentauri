@@ -4,6 +4,7 @@
 /dts-v1/;
 
 #include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/interrupt-controller/irq.h>
 #include "sun8i-t113s.dtsi"
 
 / {
@@ -80,6 +81,99 @@
 			hsync-active = <0>;
 			vsync-active = <0>;
 			pixelclk-active = <0>;
+		};
+	};
+
+	reserved-memory {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges;
+
+		/*
+		 * Reserve memory for the DSP firmware.
+		 * Adjust base and size to match your firmware's linker script.
+		 * This region must not overlap with Linux kernel memory.
+		 *
+		 * Common configurations:
+		 *   - SRAM only (small firmware): use the DSP SRAM region
+		 *   - DDR carveout (large firmware): reserve a DDR region
+		 */
+		dsp_reserved: dsp@42000000 {
+			reg = <0x42000000 0x00100000>; /* 1 MiB example */
+			no-map;
+		};
+
+		/*
+		 * Shared memory for RPMsg virtio vrings and buffers.
+		 * This must be accessible by both ARM and DSP.
+		 */
+		vdev0buffer: vdev0buffer@42100000 {
+			compatible = "shared-dma-pool";
+			reg = <0x42100000 0x40000>; /* 256 KiB */
+			no-map;
+		};
+
+		vdev0vring0: vdev0vring0@42140000 {
+			reg = <0x42140000 0x2000>; /* 8 KiB */
+			no-map;
+		};
+
+		vdev0vring1: vdev0vring1@42142000 {
+			reg = <0x42142000 0x2000>; /* 8 KiB */
+			no-map;
+		};
+	};
+
+	soc {
+		msgbox: mailbox@3003000 {
+			compatible = "allwinner,sunxi-r528-msgbox";
+			reg = <0x03003000 0x1000>,  /* ARM CPUX_MSGBOX (local/RX) */
+			      <0x01701000 0x1000>;  /* DSP_MSGBOX (remote/TX) */
+			reg-names = "local", "remote";
+			clocks = <&ccu CLK_BUS_MSGBOX0>;
+			resets = <&ccu RST_BUS_MSGBOX0>;
+			interrupts = <SOC_PERIPHERAL_IRQ(0) IRQ_TYPE_LEVEL_HIGH>;
+			#mbox-cells = <1>;
+			status = "okay";
+		};
+
+		dsp: dsp@1700000 {
+			compatible = "allwinner,sunxi-r528-hifi4-rproc";
+			reg = <0x01700000 0x100>,      /* DSP CFG */
+			      <0x03000000 0x10>;       /* SRAMC (for remap) */
+			reg-names = "cfg", "sram";
+
+			clocks = <&ccu CLK_DSP>,
+			         <&ccu CLK_BUS_DSP_CFG>;
+			clock-names = "dsp", "cfg";
+
+			resets = <&ccu RST_DSP>,
+			         <&ccu RST_BUS_DSP_CFG>,
+			         <&ccu RST_BUS_DSP_DBG>;
+			reset-names = "dsp", "cfg", "dbg";
+
+			/*
+			 * Mailbox channels:
+			 *   Channel 0 = RX from DSP (MSGBOX channels 0-3)
+			 *   Channel 4 = TX to DSP   (MSGBOX channels 4-7)
+			 */
+			mboxes = <&msgbox 0>,  /* RX: DSP -> ARM */
+			         <&msgbox 4>;  /* TX: ARM -> DSP */
+			mbox-names = "rx", "tx";
+
+			memory-region = <&dsp_reserved>,
+			                <&vdev0buffer>,
+			                <&vdev0vring0>,
+			                <&vdev0vring1>;
+
+			/*
+			 * Firmware file loaded from /lib/firmware/.
+			 * Can be overridden at runtime via:
+			 *   echo my_fw.elf > /sys/class/remoteproc/remoteproc0/firmware
+			 */
+			firmware-name = "hifi4-dsp.elf";
+
+			status = "okay";
 		};
 	};
 };
