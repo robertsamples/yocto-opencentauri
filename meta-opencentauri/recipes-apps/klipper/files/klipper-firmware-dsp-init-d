@@ -1,6 +1,6 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:          opencentauri-firmware
+# Provides:          klipper-firmware-dsp
 # Required-Start:    $local_fs $remote_fs $network
 # Required-Stop:     $local_fs $remote_fs $network
 # Default-Start:     2 3 4 5
@@ -12,11 +12,11 @@ REMOTEPROCFILE="/sys/class/remoteproc/remoteproc0/state"
 
 case "$1" in
     start)
-        echo "Starting opencentauri-firmware..."
+        echo "Starting klipper-firmware-dsp..."
         echo start > $REMOTEPROCFILE
         ;;
     stop)
-        echo "Stopping opencentauri-firmware..."
+        echo "Stopping klipper-firmware-dsp..."
         echo stop > $REMOTEPROCFILE
         ;;
     restart|force-reload)
@@ -25,7 +25,7 @@ case "$1" in
         $0 start
         ;;
     status)
-        echo "opencentauri-firmware is $(cat $REMOTEPROCFILE)"
+        echo "klipper-firmware-dsp is $(cat $REMOTEPROCFILE)"
         ;;
     *)
         echo "Usage: $0 {start|stop|restart|status}"

@@ -28,5 +28,4 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     nano \
     devmem2 \
     mjpg-streamer \
-    opencentauri-firmware \
 "
