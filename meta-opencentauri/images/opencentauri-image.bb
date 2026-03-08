@@ -39,6 +39,7 @@ WKS_FILES = "opencentauri-usb-image.wks.in"
 WKS_FILE_DEPENDS += "squashfs-tools-native"
 
 EXTRACT_PARTITION_LABEL = "boot"
+WIC_CREATE_EXTRA_ARGS += "--no-fstab-update"
 
 INITRAMFS_IMAGE = "core-image-tiny-initramfs"
 INITRAMFS_FSTYPES = "cpio.gz"
