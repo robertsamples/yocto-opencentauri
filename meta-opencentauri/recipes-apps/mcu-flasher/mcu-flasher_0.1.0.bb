@@ -5,7 +5,11 @@ HOMEPAGE = "https://github.com/OpenCentauri/OpenCentauri"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://../LICENSE;md5=0a18a528575a965515cdd877f88b3c4c"
 
-SRC_URI += "git://github.com/OpenCentauri/OpenCentauri.git;protocol=https;nobranch=1;branch=main"
+SRC_URI += " \
+    git://github.com/OpenCentauri/OpenCentauri.git;protocol=https;nobranch=1;branch=main \
+    file://0002-Don-t-wait-for-mcu-to-respond-after-flashing.patch;patchdir=.. \
+    file://0001-Use-rust-2021-edition.patch;patchdir=.. \
+"
 SRCREV = "88e881972c9a08757d7a31bd25f46b419ef91a02"
 
 S = "${WORKDIR}/git/mcu-flasher"
