@@ -42,6 +42,30 @@ software =
                 {
                     name = "systemAB_next";
                     value = "B";
+                },
+                {
+                    name = "swu_version";
+                    value = "@@DISTRO_VERSION@@";
+                },
+                {
+                    name = "swu_mode";
+                    value = "mainline";
+                },
+                {
+                    name = "setargs_mainline";
+                    value = "setenv bootargs console=ttyS0,115200 earlycon=uart8250,mmio32,0x02500000 root=${mmc_root} rootwait";
+                },
+                {
+                    name = "bootcmd_stock";
+                    value = "run setargs_mmc boot_dsp0 boot_normal";
+                },
+                {
+                    name = "bootcmd_mainline";
+                    value = "run setargs_mainline; fatload mmc 0:${boot_part} 43000000 zImage; fatload mmc 0:${boot_part} 43800000 elegoo-centauri-carbon1.dtb; bootz 43000000 - 43800000";
+                },
+                {
+                    name = "bootcmd";
+                    value = "if test x${swu_mode} = xmainline; then run bootcmd_mainline; else run bootcmd_stock; fi";
                 }
             );
         };
@@ -81,36 +105,32 @@ software =
                 {
                     name = "systemAB_next";
                     value = "A";
+                },
+                {
+                    name = "swu_version";
+                    value = "@@DISTRO_VERSION@@";
+                },
+                {
+                    name = "swu_mode";
+                    value = "mainline";
+                },
+                {
+                    name = "setargs_mainline";
+                    value = "setenv bootargs console=ttyS0,115200 earlycon=uart8250,mmio32,0x02500000 root=${mmc_root} rootwait";
+                },
+                {
+                    name = "bootcmd_stock";
+                    value = "run setargs_mmc boot_dsp0 boot_normal";
+                },
+                {
+                    name = "bootcmd_mainline";
+                    value = "run setargs_mainline; fatload mmc 0:${boot_part} 43000000 zImage; fatload mmc 0:${boot_part} 43800000 elegoo-centauri-carbon1.dtb; bootz 43000000 - 43800000";
+                },
+                {
+                    name = "bootcmd";
+                    value = "if test x${swu_mode} = xmainline; then run bootcmd_mainline; else run bootcmd_stock; fi";
                 }
             );
         };
     };
-
-    /* Always set these variables */
-    bootenv: (
-        {
-            name = "swu_version";
-            value = "@@DISTRO_VERSION@@";
-        },
-        {
-            name = "swu_mode";
-            value = "mainline";
-        },
-        {
-            name = "setargs_mainline";
-            value = "setenv bootargs console=ttyS0,115200 earlycon=uart8250,mmio32,0x02500000 root=${mmc_root} rootwait";
-        },
-        {
-            name = "bootcmd_stock";
-            value = "run setargs_mmc boot_dsp0 boot_normal";
-        },
-        {
-            name = "bootcmd_mainline";
-            value = "run setargs_mainline; fatload mmc 0:${boot_part} 43000000 zImage; fatload mmc 0:${boot_part} 43800000 elegoo-centauri-carbon1.dtb; bootz 43000000 - 43800000";
-        },
-        {
-            name = "bootcmd";
-            value = "if test x${swu_mode} = xmainline; then run bootcmd_mainline; else run bootcmd_stock; fi";
-        }
-    );
 }

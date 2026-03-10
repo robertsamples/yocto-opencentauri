@@ -4,7 +4,6 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-3.0-only;md5=c79ff39f19dfec
 
 SRC_URI = " \
     file://sw-description \
-    file://swupdate_private.pem \
 "
 
 IMAGE_DEPENDS = "opencentauri-image virtual/kernel u-boot"
