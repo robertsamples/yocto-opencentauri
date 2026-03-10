@@ -1,5 +1,5 @@
 #!/bin/sh
-# /usr/local/bin/usb-mount.sh
+# /usr/local/bin/usb-mount
 # Called by udev to mount/unmount USB storage partitions
 
 case "$1" in

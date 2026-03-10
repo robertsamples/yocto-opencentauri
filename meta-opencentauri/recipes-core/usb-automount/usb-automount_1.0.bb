@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-3.0-only;md5=c79ff39f19dfec
 
 SRC_URI = "\
     file://99-usb-automount.rules \
-    file://usb-mount.sh \
+    file://usb-mount \
 "
 
 RDEPENDS:${PN} = "udev"
@@ -15,10 +15,10 @@ do_install() {
         ${D}${sysconfdir}/udev/rules.d/99-usb-automount.rules
 
     install -d ${D}${bindir}
-    install -m 0755 ${WORKDIR}/usb-mount.sh ${D}${bindir}/usb-mount.sh
+    install -m 0755 ${WORKDIR}/usb-mount ${D}${bindir}/usb-mount
 }
 
 FILES:${PN} = "\
     ${sysconfdir}/udev/rules.d/99-usb-automount.rules \
-    ${bindir}/usb-mount.sh \
+    ${bindir}/usb-mount \
 "
