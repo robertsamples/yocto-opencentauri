@@ -4,7 +4,6 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-3.0-only;md5=c79ff39f19dfec
 
 SRC_URI = " \
     file://sw-description \
-    file://lines1.bmp \
 "
 
 IMAGE_DEPENDS = "opencentauri-image virtual/kernel u-boot"
@@ -12,6 +11,7 @@ IMAGE_DEPENDS = "opencentauri-image virtual/kernel u-boot"
 SWUPDATE_IMAGES = " \
     opencentauri-image-elegoo-centauri-carbon1.rootfs \
     boot \
+    bootlogos \
     u-boot-sunxi-with-spl \
 "
 
@@ -20,6 +20,9 @@ SWUPDATE_IMAGES_NOAPPEND_MACHINE[opencentauri-image-elegoo-centauri-carbon1.root
 
 SWUPDATE_IMAGES_FSTYPES[boot] = ".img"
 SWUPDATE_IMAGES_NOAPPEND_MACHINE[boot] = "1"
+
+SWUPDATE_IMAGES_FSTYPES[bootlogos] = ".img"
+SWUPDATE_IMAGES_NOAPPEND_MACHINE[bootlogos] = "1"
 
 SWUPDATE_IMAGES_FSTYPES[u-boot-sunxi-with-spl] = ".bin"
 SWUPDATE_IMAGES_NOAPPEND_MACHINE[u-boot-sunxi-with-spl] = "1"

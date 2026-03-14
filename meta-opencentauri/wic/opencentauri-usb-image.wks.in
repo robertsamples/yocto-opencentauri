@@ -16,3 +16,4 @@
 part u-boot --source rawcopy --sourceparams="file=${SPL_BINARY}" --ondisk mmcblk0 --no-table --align 8
 part /boot --source bootimg-partition --ondisk mmcblk0 --fstype=vfat --label boot --active --align 2048 --fixed-size 6300k
 part /     --source rootfs --ondisk mmcblk0 --fstype=squashfs --align 2048 --fixed-size 131166k
+part /boot-resource --source rootfs --rootfs-dir=${IMAGE_ROOTFS}/boot-resource --ondisk mmcblk0 --fstype=vfat --label bootlogos --fixed-size 6300k

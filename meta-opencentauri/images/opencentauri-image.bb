@@ -38,12 +38,13 @@ CORE_IMAGE_EXTRA_INSTALL += "\
     zram-emmc-swap \
     usb-automount \
     psplash \
+    opencentauri-bootlogos \
 "
 
 WKS_FILES = "opencentauri-usb-image.wks.in"
 WKS_FILE_DEPENDS += "squashfs-tools-native"
 
-EXTRACT_PARTITION_LABEL = "boot"
+EXTRACT_PARTITION_LABELS = "boot bootlogos"
 WIC_CREATE_EXTRA_ARGS += "--no-fstab-update"
 
 INITRAMFS_IMAGE = "core-image-tiny-initramfs"

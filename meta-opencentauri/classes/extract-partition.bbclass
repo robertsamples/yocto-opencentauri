@@ -1,5 +1,5 @@
 SOURCE_IMAGE_FILE ?= "${DEPLOY_DIR_IMAGE}/${IMAGE_LINK_NAME}.wic"
-EXTRACT_PARTITION_LABEL ?= "boot"
+EXTRACT_PARTITION_LABELS ?= "boot"
 
 do_extract_partition[nostamp] = "1"
 
@@ -8,7 +8,7 @@ python do_extract_partition() {
 
     source = d.getVar('SOURCE_IMAGE_FILE')
     deploy_dir = d.getVar('DEPLOY_DIR_IMAGE')
-    label = d.getVar('EXTRACT_PARTITION_LABEL')
+    labels = d.getVar('EXTRACT_PARTITION_LABELS').split()
 
     if os.path.islink(source):
         source = os.path.join(os.path.dirname(source), os.readlink(source))
@@ -32,7 +32,9 @@ python do_extract_partition() {
         )
 
         blkid_vars = dict(line.split('=', 1) for line in blkid.stdout.splitlines() if '=' in line)
-        if blkid_vars.get('LABEL') == label:
+        label = blkid_vars.get('LABEL')
+        if label in labels:
+            labels.remove(label)
             count = end - start + 1
             out = os.path.join(deploy_dir, label + '.img')
             subprocess.check_call([
@@ -40,9 +42,9 @@ python do_extract_partition() {
                 'bs=512', 'skip=' + str(start), 'count=' + str(count)
             ])
             bb.note("Extracted partition '%s' to %s" % (label, out))
-            return
 
-    bb.fatal("Could not find partition with label '%s'" % label)
+    if labels:
+        bb.fatal("Could not find partition with label '%s'" % label)
 }
 
 addtask do_extract_partition after do_image_complete before do_build

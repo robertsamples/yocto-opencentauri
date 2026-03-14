@@ -5,3 +5,4 @@ tmpfs                /run                 tmpfs      mode=0755,nodev,nosuid,stri
 tmpfs                /var/volatile        tmpfs      defaults              0  0
 /dev/mmcblk0p13      /mnt/writable        auto       defaults              0  0
 /mnt/writable/printer_data /printer_data  none       bind,nofail           0  0
+/dev/mmcblk0p1       /boot-resource       auto       defualts              0  0
