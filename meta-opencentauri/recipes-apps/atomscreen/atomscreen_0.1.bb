@@ -30,9 +30,11 @@ FILES:${PN} += " \
     ${sysconfdir}/atomscreen \
 "
 
-SRCREV = "b27533e5d8c7ae185ca44ae4d9314b0850c2622a"
+PR = "r2"
+
+SRCREV = "a8aec6f69fa84c66ae1bfd6a1316a65d24c79dd5"
 SRC_URI = " \
-    git://github.com/OpenCentauri/atomscreen.git;protocol=https;branch=main \
+    git://github.com/jamesturton/atomscreen.git;protocol=https;branch=crates-slint \
     file://atomscreen.toml \
     file://atomscreen.init \
     crate://crates.io/ab_glyph/0.2.32 \
