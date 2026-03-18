@@ -34,6 +34,7 @@ case "$1" in
 
         if [ ! -f "$INSTALLED_VERSION" ] || [ "$(cat $INSTALLED_VERSION)" != "$(cat $FIRMWARE_VERSION)" ]; then
             echo "Firmware version mismatch or not installed, flashing firmware..."
+            flashtool -d $SERIALPORT -b 115200 -r
             if flashtool -d $SERIALPORT -f $FIRMWARE -b 115200; then
                 cp $FIRMWARE_VERSION $INSTALLED_VERSION
                 echo "Firmware flashed and version recorded."
