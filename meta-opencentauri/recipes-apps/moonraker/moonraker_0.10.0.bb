@@ -15,6 +15,8 @@ SRCREV = "16e530eb663218faa6ccd97ffb0583f1880e2983"
 
 S = "${WORKDIR}/git"
 
+PR = "r1"
+
 inherit python3-dir update-rc.d
 
 DEPENDS = " \
@@ -42,6 +44,8 @@ RDEPENDS:${PN} = " \
     python3-importlib-metadata \
     python3-zipp \
     python3-smart-open \
+    python3-msgspec \
+    python3-uvloop \
     nginx \
     kalico \
 "
