@@ -9,7 +9,7 @@
 ### END INIT INFO
 
 CONF=/etc/klipper/config/display.conf
-GUI=guppyscreen
+GUI=grumpyscreen
 PIDFILE=/var/run/gui.pid
 
 [ -f "$CONF" ] && . "$CONF"
