@@ -3,8 +3,14 @@ on:
   pull_request:
 
 jobs:
-  build:
+  approve:
+    runs-on: ubuntu-latest
     environment: approval-needed
+    steps:
+      - run: echo "Approved"
+
+  build:
+    needs: approve
     uses: ./.github/workflows/build.yml
     with:
       use_cache: true
