@@ -13,7 +13,7 @@ SWUFILE="/user-resource/update/update.swu"
 SERIALPORT_BED="/dev/ttyS4"
 STOCK_FW_BED="/lib/firmware/katapult-deployer-stock-bed.bin"
 
-SERIALPORT_TOOLHEAD="/dev/ttyACM0"
+SERIALPORT_TOOLHEAD="/dev/serial/by-path/platform-4101400.usb-usb-0:1:1.0"
 STOCK_FW_TOOLHEAD="/lib/firmware/katapult-deployer-stock-toolhead.bin"
 
 # Download firmware
