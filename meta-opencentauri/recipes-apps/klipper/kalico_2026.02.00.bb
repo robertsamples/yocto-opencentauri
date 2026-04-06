@@ -9,10 +9,7 @@ SRC_URI += " \
     file://klipper-init-d \
     file://printer.cfg \
     file://macros.cfg \
-    file://bed.cfg \
-    file://mainboard.cfg \
-    file://toolhead.cfg \
-    file://misc.cfg \
+    file://machine.cfg \
     file://shell.cfg \
     file://screen.cfg \
 "
@@ -91,8 +88,7 @@ do_install() {
 
     # Copy non-printer .cfg files to readonly folder
     install -d ${D}${sysconfdir}/klipper/config/klipper-readonly
-    install -m 0644 ${WORKDIR}/macros.cfg ${WORKDIR}/bed.cfg ${WORKDIR}/mainboard.cfg \
-        ${WORKDIR}/toolhead.cfg ${WORKDIR}/misc.cfg ${WORKDIR}/shell.cfg ${WORKDIR}/screen.cfg ${D}${sysconfdir}/klipper/config/klipper-readonly
+    install -m 0644 ${WORKDIR}/machine.cfg ${WORKDIR}/shell.cfg ${WORKDIR}/macros.cfg ${WORKDIR}/screen.cfg ${D}${sysconfdir}/klipper/config/klipper-readonly
 
     # Install SysVinit script
     install -d ${D}${sysconfdir}/init.d
@@ -108,10 +104,7 @@ FILES:${PN} = " \
 CONFFILES:${PN} = " \
     ${sysconfdir}/klipper/config/printer.cfg \
     ${sysconfdir}/klipper/config/klipper-readonly/macros.cfg \
-    ${sysconfdir}/klipper/config/klipper-readonly/bed.cfg \
-    ${sysconfdir}/klipper/config/klipper-readonly/mainboard.cfg \
-    ${sysconfdir}/klipper/config/klipper-readonly/toolhead.cfg \
-    ${sysconfdir}/klipper/config/klipper-readonly/misc.cfg \
+    ${sysconfdir}/klipper/config/klipper-readonly/machine.cfg \
     ${sysconfdir}/klipper/config/klipper-readonly/shell.cfg \
     ${sysconfdir}/klipper/config/klipper-readonly/screen.cfg \
 "
