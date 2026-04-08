@@ -12,7 +12,7 @@ _For detailed technical and build information [See development info](./Developme
 - Better leveling scripts that increase accuracy
 - See fan RPM in the webUI
 - Directly set exhaust fan speed
-- Ability to add an aftermarket AMS
+- Ability to add an aftermarket AMS (see this [repository](https://github.com/shawn-makes-stuff/cosmoace-integration) for information on ancubic ACE integration on COSMOS)
 - Full control over I/O pins- this should make it possible repurpose model fan - tachometer pin for a toolhead filament detector
 - Ability control and dim the toolhead led for those that have added it, from webui and printer screen
 - Dimming control on the main light
